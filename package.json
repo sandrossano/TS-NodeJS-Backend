@@ -12,7 +12,9 @@
     "mysql": "2.18.1",
     "net": "1.0.2",
     "node": "16.11.1",
-    "nodemon": "2.0.14"
+    "nodemon": "2.0.14",
+    "bower": "^1.8.0",
+    "grunt": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "2.0.14"
@@ -21,7 +23,9 @@
     "start": "nodemon server/index.js",
     "server": "nodemon server/index.js",
     "client": "react-scripts start",
-    "devStart": "nodemon server/index.js"
+    "devStart": "nodemon server/index.js",
+    "build": "grunt dist",
+    "postinstall": "./node_modules/bower/bin/bower install && npm run build"
   },
   "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }
