@@ -17,6 +17,10 @@ app.get("/api/get", (req, res) => {
   });
 });
 
+app.get("/", (req, res) => {
+  res.send("aaa");
+});
+
 // Route to get one post
 app.get("/api/login/:id~:psw", (req, res) => {
   const id = req.params.id;
