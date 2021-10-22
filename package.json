@@ -1,0 +1,26 @@
+{
+  "name": "app-mobile-ts-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "server/index.js",
+  "dependencies": {
+    "axios": "0.23.0",
+    "cors": "^2.8.5",
+    "crypto": "1.0.1",
+    "express": "4.17.1",
+    "mysql": "2.18.1",
+    "net": "1.0.2",
+    "node": "16.11.1"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.4"
+  },
+  "scripts": {
+    "start": "npm run server",
+    "server": "node server/index.js",
+    "client": "react-scripts start",
+    "devStart": "nodemon server/index.js"
+  },
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+}
