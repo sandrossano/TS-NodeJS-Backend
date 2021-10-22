@@ -3,7 +3,7 @@ const db = require("./config/db");
 const cors = require("cors");
 const crypto = require("crypto");
 const app = express();
-const PORT = 3001;
+const PORT = 3003;
 app.use(cors());
 app.use(express.json());
 
@@ -86,5 +86,5 @@ app.delete("/api/delete/:id", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
+  console.log(`Server is running on` + PORT);
 });
