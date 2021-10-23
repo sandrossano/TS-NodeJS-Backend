@@ -25,7 +25,9 @@ app.get("/api/getproject/:id", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Backend Timesheet: /api/getproject/:id /api/login/:id~:psw");
+  res.send(
+    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p>"
+  );
 });
 
 // Route to get one post
