@@ -3,13 +3,14 @@ const db = require("./config/db");
 const cors = require("cors");
 const crypto = require("crypto");
 const app = express();
-const PORT = process.env.PORT || 5000 
+const PORT = process.env.PORT || 5000;
+
 app.use(cors());
 app.use(express.json());
 
 // Route to get all posts
 app.get("/api/get", (req, res) => {
-  db.query("SELECT * FROM tt_projects", (err, result) => {
+  db.query("SELECT * FROM tt_projects ORDER BY name", (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -18,8 +19,7 @@ app.get("/api/get", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  console.log("ciao!");
-  res.send("aaa");
+  res.send("Backend Timesheet: /api/get /api/login/:id~:psw");
 });
 
 // Route to get one post
@@ -86,5 +86,6 @@ app.delete("/api/delete/:id", (req, res) => {
   });
 });
 
-express()
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+app.listen(PORT, () => {
+  console.log(`Server is running on` + PORT);
+});
