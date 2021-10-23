@@ -7,10 +7,16 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-
+const queryproject =
+  "SELECT tt_projects.name,tt_projects.description" +
+  " FROM tt_user_project_binds INNER JOIN tt_users" +
+  " ON tt_user_project_binds.user_id = tt_users.id" +
+  " INNER JOIN tt_projects ON tt_projects.id = tt_user_project_binds.project_id" +
+  " WHERE tt_users.login = ? ORDER by tt_projects.name";
 // Route to get all posts
-app.get("/api/get", (req, res) => {
-  db.query("SELECT * FROM tt_projects ORDER BY name", (err, result) => {
+app.get("/api/getproject/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(queryproject, id, (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -19,7 +25,7 @@ app.get("/api/get", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Backend Timesheet: /api/get /api/login/:id~:psw");
+  res.send("Backend Timesheet: /api/getproject/:id /api/login/:id~:psw");
 });
 
 // Route to get one post
