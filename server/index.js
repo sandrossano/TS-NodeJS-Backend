@@ -26,7 +26,7 @@ app.get("/api/getproject/:id", (req, res) => {
 
 app.get("/", (req, res) => {
   res.send(
-    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p>"
+    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id</p>"
   );
 });
 
@@ -47,6 +47,42 @@ app.get("/api/login/:id~:psw", (req, res) => {
       res.send(result);
     }
   );
+});
+
+const queryevent =
+  "SELECT tt_log.id,tt_log.date AS start,tt_log.date AS end," +
+  "tt_log.duration,tt_clients.name,tt_projects.name AS project," +
+  "tt_tasks.name AS task FROM tt_log INNER JOIN tt_users ON " +
+  "tt_log.user_id = tt_users.id INNER JOIN tt_clients ON " +
+  "tt_log.client_id = tt_clients.id INNER JOIN tt_projects " +
+  "ON tt_log.project_id = tt_projects.id INNER JOIN tt_tasks " +
+  "ON tt_log.task_id = tt_tasks.id WHERE tt_users.login = ? " +
+  "ORDER BY tt_log.date DESC";
+// Route to get all posts
+app.get("/api/getevent/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(queryevent, id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
+app.get("/", (req, res) => {
+  res.send(
+    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p>"
+  );
+});
+
+// Route to get one post
+app.get("/api/gettask", (req, res) => {
+  db.query("SELECT * FROM tt_tasks", (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
 });
 
 // Route for creating the post
@@ -95,5 +131,5 @@ app.delete("/api/delete/:id", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on` + PORT);
+  console.log("Server is running on" + PORT);
 });
