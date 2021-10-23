@@ -56,12 +56,13 @@ const queryevent =
   "tt_log.user_id = tt_users.id INNER JOIN tt_clients ON " +
   "tt_log.client_id = tt_clients.id INNER JOIN tt_projects " +
   "ON tt_log.project_id = tt_projects.id INNER JOIN tt_tasks " +
-  "ON tt_log.task_id = tt_tasks.id WHERE tt_users.login = ? " +
+  "ON tt_log.task_id = tt_tasks.id WHERE tt_users.login = ? AND tt_log.date >= ?" +
   "ORDER BY tt_log.date DESC";
 // Route to get all posts
-app.get("/api/getevent/:id", (req, res) => {
+app.get("/api/getevent/:id~:date", (req, res) => {
   const id = req.params.id;
-  db.query(queryevent, id, (err, result) => {
+  const date = req.params.date;
+  db.query(queryevent, [id, date], (err, result) => {
     if (err) {
       console.log(err);
     }
