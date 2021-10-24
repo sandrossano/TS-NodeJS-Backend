@@ -92,12 +92,15 @@ app.get("/api/gettypes", (req, res) => {
 
 // Route to get one post
 app.get("/api/getusers", (req, res) => {
-  db.query("SELECT * FROM tt_users", (err, result) => {
-    if (err) {
-      console.log(err);
+  db.query(
+    "SELECT * FROM tt_users WHERE tt_users.status = '1' ORDER BY tt_users.login",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
     }
-    res.send(result);
-  });
+  );
 });
 
 // Route for creating the post
