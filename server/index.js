@@ -160,9 +160,10 @@ app.post("/api/edituser/:name~:login~:email~:psw", (req, res) => {
   const name = req.params.name;
   const login = req.params.login;
   const email = req.params.email;
-  const psw = req.params.psw;
+  //const psw = req.params.psw;
+  const psw = crypto.createHash("md5").update(req.params.psw).digest("hex");
   db.query(
-    "UPDATE tt_user SET name = ? , email = ? , password = ? WHERE login = ?",
+    "UPDATE tt_users SET tt_users.name = ? , tt_users.email = ? , tt_users.password = ? WHERE tt_users.login = ?",
     [name, email, psw, login],
     (err, result) => {
       if (err) {
