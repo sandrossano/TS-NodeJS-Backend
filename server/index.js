@@ -156,7 +156,7 @@ app.post("/api/create", (req, res) => {
 });
 
 // Route to like a post
-app.get("/api/edituser/:name~:login~:email~:psw", (req, res) => {
+app.post("/api/edituser/:name~:login~:email~:psw", (req, res) => {
   const name = req.params.name;
   const login = req.params.login;
   const email = req.params.email;
