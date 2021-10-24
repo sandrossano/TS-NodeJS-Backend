@@ -82,7 +82,7 @@ app.get("/api/gettask", (req, res) => {
 
 // Route to get one post
 app.get("/api/gettypes", (req, res) => {
-  db.query("SELECT * FROM tt_types", (err, result) => {
+  db.query("SELECT * FROM tt_tasks", (err, result) => {
     if (err) {
       console.log(err);
     }
