@@ -26,7 +26,7 @@ app.get("/api/getproject/:id", (req, res) => {
 
 app.get("/", (req, res) => {
   res.send(
-    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/getusers</p> <p>/api/getdash/:id~:date</p> <p>/api/getdash/:date~:id</p> <p>/api/getuser/:id</p>"
+    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/getusers</p> <p>/api/getdash/:id~:date</p> <p>/api/getdash/:date~:id</p> <p>/api/getuser/:id</p> <p>/api/edituser/:name~:login~:email~:psw</p>"
   );
 });
 
@@ -156,11 +156,14 @@ app.post("/api/create", (req, res) => {
 });
 
 // Route to like a post
-app.post("/api/like/:id", (req, res) => {
-  const id = req.params.id;
+app.post("/api/edituser/:name~:login~:email~:psw", (req, res) => {
+  const name = req.params.name;
+  const login = req.params.login;
+  const email = req.params.email;
+  const psw = req.params.psw;
   db.query(
-    "UPDATE posts SET likes = likes + 1 WHERE id = ?",
-    id,
+    "UPDATE tt_user SET name = ? , email = ? , password = ? WHERE login = ?",
+    [name, email, psw, login],
     (err, result) => {
       if (err) {
         console.log(err);
