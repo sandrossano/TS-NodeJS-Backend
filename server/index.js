@@ -72,13 +72,33 @@ app.get("/api/getevent/:id~:date", (req, res) => {
 
 app.get("/", (req, res) => {
   res.send(
-    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p>"
+    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getypes</p> <p>/api/getusers</p>"
   );
 });
 
 // Route to get one post
 app.get("/api/gettask", (req, res) => {
   db.query("SELECT * FROM tt_tasks", (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
+// Route to get one post
+app.get("/api/gettypes", (req, res) => {
+  db.query("SELECT * FROM tt_types", (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
+// Route to get one post
+app.get("/api/getusers", (req, res) => {
+  db.query("SELECT * FROM tt_users", (err, result) => {
     if (err) {
       console.log(err);
     }
