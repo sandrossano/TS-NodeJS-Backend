@@ -169,7 +169,7 @@ app.post("/api/edituser/:name~:login~:email~:psw", (req, res) => {
       if (err) {
         console.log(err);
       }
-      console.log(result);
+      res.send(result);
     }
   );
 });
