@@ -26,7 +26,7 @@ app.get("/api/getproject/:id", (req, res) => {
 
 app.get("/", (req, res) => {
   res.send(
-    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/getusers</p> <p>/api/getdash/:id~:date</p> <p>/api/getdash/:date~:id</p>"
+    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/getusers</p> <p>/api/getdash/:id~:date</p> <p>/api/getdash/:date~:id</p> <p>/api/getuser/:id</p>"
   );
 });
 
@@ -47,6 +47,17 @@ app.get("/api/login/:id~:psw", (req, res) => {
       res.send(result);
     }
   );
+});
+
+// Route to get one post
+app.get("/api/getuser/:id", (req, res) => {
+  const id = req.params.id;
+  db.query("SELECT * FROM tt_users WHERE login = ? ", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
 });
 
 const querydash =
