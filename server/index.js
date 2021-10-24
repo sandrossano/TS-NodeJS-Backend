@@ -26,7 +26,7 @@ app.get("/api/getproject/:id", (req, res) => {
 
 app.get("/", (req, res) => {
   res.send(
-    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/getypes</p> <p>/api/getusers</p>"
+    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/gettypes</p> <p>/api/getusers</p>"
   );
 });
 
