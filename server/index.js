@@ -26,7 +26,7 @@ app.get("/api/getproject/:id", (req, res) => {
 
 app.get("/", (req, res) => {
   res.send(
-    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/getusers</p>"
+    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/getusers</p> <p>/api/getdash/:id~:date</p> <p>/api/getdash/:date~:id</p>"
   );
 });
 
@@ -47,6 +47,36 @@ app.get("/api/login/:id~:psw", (req, res) => {
       res.send(result);
     }
   );
+});
+
+const querydash =
+  "SELECT SUM(tt_log.duration) AS counter, tt_tasks.id, tt_tasks.name, tt_log.user_id  " +
+  "FROM tt_tasks LEFT JOIN tt_log ON tt_tasks.id  = tt_log.task_id " +
+  "AND tt_log.date >= ? AND tt_log.date < ? AND tt_log.status = '1' " +
+  "AND tt_log.user_id = ( SELECT tt_users.id FROM tt_users WHERE tt_users.login = ?) " +
+  "WHERE tt_tasks.status = '1' AND tt_tasks.name IN ('Smart Working','Hours Off','Holiday','On-Site') " +
+  "GROUP BY tt_tasks.id, tt_tasks.name, tt_log.user_id";
+// Route to get all posts
+app.get("/api/getdash/:date1~:id", (req, res) => {
+  const id = req.params.id;
+  const date1 = req.params.date1;
+  var date2 = new Date(
+    date1.split("-")[0],
+    date1.split("-")[1],
+    date1.split("-")[2],
+    0,
+    0,
+    0
+  );
+  date2.setMonth(date2.getMonth() + 1);
+  var datenext =
+    date2.getFullYear() + "-" + date2.getMonth() + "-" + date2.getDay();
+  db.query(querydash, [date1, datenext, id], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
 });
 
 const queryevent =
@@ -72,12 +102,15 @@ app.get("/api/getevent/:id~:date", (req, res) => {
 
 // Route to get one post
 app.get("/api/gettask", (req, res) => {
-  db.query("SELECT * FROM tt_tasks WHERE tt_tasks.status = '1'", (err, result) => {
-    if (err) {
-      console.log(err);
+  db.query(
+    "SELECT * FROM tt_tasks WHERE tt_tasks.status = '1'",
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
     }
-    res.send(result);
-  });
+  );
 });
 
 // Route to get one post
