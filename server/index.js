@@ -24,6 +24,12 @@ app.get("/api/getproject/:id", (req, res) => {
   });
 });
 
+app.get("/", (req, res) => {
+  res.send(
+    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/getypes</p> <p>/api/getusers</p>"
+  );
+});
+
 // Route to get one post
 app.get("/api/login/:id~:psw", (req, res) => {
   const id = req.params.id;
@@ -62,12 +68,6 @@ app.get("/api/getevent/:id~:date", (req, res) => {
     }
     res.send(result);
   });
-});
-
-app.get("/", (req, res) => {
-  res.send(
-    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getypes</p> <p>/api/getusers</p>"
-  );
 });
 
 // Route to get one post
