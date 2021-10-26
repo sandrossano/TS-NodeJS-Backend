@@ -95,7 +95,7 @@ app.post(
       if (err) {
         console.log(err);
       }
-      res.send(result.insertId);
+      res.send(result);
     });
   }
 );
