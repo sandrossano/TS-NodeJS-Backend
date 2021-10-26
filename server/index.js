@@ -25,7 +25,7 @@ app.get("/api/getproject/:id", (req, res) => {
 });
 
 const queryprojectclienttask =
-  "SELECT tt_projects.name AS 'idprojects' , tt_projects.name,tt_projects.description,tt_clients.name AS 'clients', tt_clients.id AS 'idclients'," +
+  "SELECT tt_projects.id AS 'idprojects' , tt_projects.name,tt_projects.description,tt_clients.name AS 'clients', tt_clients.id AS 'idclients'," +
   " tt_tasks.name AS 'tasks' , tt_tasks.id AS 'idtasks' FROM tt_user_project_binds INNER JOIN " +
   "tt_users ON tt_user_project_binds.user_id = tt_users.id " +
   "INNER JOIN tt_projects ON tt_projects.id = tt_user_project_binds.project_id " +
