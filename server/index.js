@@ -58,7 +58,8 @@ app.get("/", (req, res) => {
     " <p>/api/getuser/:id</p>" +
     " <p>/api/edituser/:name~:login~:email~:psw (POST)</p>" +
     " <p>/api/postevent/:user~:date~:duration~:comment~:client~:project~:task (POST)</p>" +
-    " <p>/api/deleteevent/:idevt (DELETE)</p>";
+    " <p>/api/deleteevent/:idevt (DELETE)</p>" +
+    " <p>/api/updateevent/:id~:user~:date~:duration~:comment~:client~:project~:task (UPDATE)</p>";
   res.send(text);
 });
 
@@ -72,6 +73,44 @@ app.delete("/api/deleteevent/:idevt", (req, res) => {
     res.send(result);
   });
 });
+
+app.update(
+  "/api/updateevent/:id~:user~:date~:duration~:comment~:client~:project~:task",
+  (req, res) => {
+    const id = req.params.id;
+    const user = req.params.user;
+    const date = req.params.date;
+    const duration = req.params.duration;
+    const comment = req.params.comment;
+    const client = req.params.client;
+    const project = req.params.project;
+    const task = req.params.task;
+    var parametri = [
+      user,
+      date,
+      duration,
+      comment,
+      client,
+      project,
+      task,
+      user,
+      id
+    ];
+    var query =
+      "UPDATE tt_log SET user_id = ? ,duration = ? ,comment = ? ,client_id = ? ,project_id = ? ,task_id = ? WHERE id = ?";
+    if (comment === "null") {
+      query =
+        "UPDATE tt_log SET user_id = ? ,duration = ? ,comment = null ,client_id = ? ,project_id = ? ,task_id = ? WHERE id = ?";
+      parametri = [user, date, duration, client, project, task, user, id];
+    }
+    db.query(query, parametri, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
+    });
+  }
+);
 
 // Route to get one post
 app.post(
