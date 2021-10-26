@@ -57,8 +57,20 @@ app.get("/", (req, res) => {
     " <p>/api/getdash/:date~:id</p>" +
     " <p>/api/getuser/:id</p>" +
     " <p>/api/edituser/:name~:login~:email~:psw (POST)</p>" +
-    " <p>/api/postevent/:user~:date~:duration~:comment~:client~:project~:task (POST)</p>";
+    " <p>/api/postevent/:user~:date~:duration~:comment~:client~:project~:task (POST)</p>" +
+    " <p>/api/deleteevent/:idevt (DELETE)</p>";
   res.send(text);
+});
+
+app.delete("/api/deleteevent/:idevt", (req, res) => {
+  const id = req.params.idevt;
+  var query = "UPDATE tt_log SET status = null WHERE id = ?";
+  db.query(query, id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
 });
 
 // Route to get one post
