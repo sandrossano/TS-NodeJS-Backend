@@ -85,23 +85,13 @@ app.post(
     const client = req.params.client;
     const project = req.params.project;
     const task = req.params.task;
-    var parametri = [
-      user,
-      date,
-      duration,
-      comment,
-      client,
-      project,
-      task,
-      user,
-      id
-    ];
+    var parametri = [user, duration, comment, client, project, task, id];
     var query =
       "UPDATE tt_log SET user_id = ? ,duration = ? ,comment = ? ,client_id = ? ,project_id = ? ,task_id = ? WHERE id = ?";
     if (comment === "null") {
       query =
         "UPDATE tt_log SET user_id = ? ,duration = ? ,comment = null ,client_id = ? ,project_id = ? ,task_id = ? WHERE id = ?";
-      parametri = [user, date, duration, client, project, task, user, id];
+      parametri = [user, duration, client, project, task, id];
     }
     db.query(query, parametri, (err, result) => {
       if (err) {
