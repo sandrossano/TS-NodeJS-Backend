@@ -62,7 +62,7 @@ app.get("/", (req, res) => {
 });
 
 // Route to get one post
-app.get(
+app.post(
   "/api/postevent/:user~:date~:duration~:comment~:client~:project~:task",
   (req, res) => {
     const user = req.params.user;
