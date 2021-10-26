@@ -78,7 +78,7 @@ app.post(
     if (comment === "null")
       query =
         "INSERT INTO tt_log (id, user_id, group_id, org_id, date, duration, comment,client_id, project_id, task_id,created_by,status,billable) " +
-        "SELECT MAX(id) + 1, ? , '1', '1', ? , ? , ? , ? , ? , null , ? , '1' , '1' FROM tt_log";
+        "SELECT MAX(id) + 1, ? , '1', '1', ? , ? , ? , null , ? , ? , ? , '1' , '1' FROM tt_log";
     db.query(
       query,
       [user, date, duration, comment, client, project, task, user],
