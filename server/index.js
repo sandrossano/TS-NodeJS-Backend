@@ -24,10 +24,40 @@ app.get("/api/getproject/:id", (req, res) => {
   });
 });
 
+const queryprojectclienttask =
+  "SELECT tt_projects.name,tt_projects.description,tt_clients.name AS 'clients'," +
+  " tt_tasks.name AS 'tasks' FROM tt_user_project_binds INNER JOIN " +
+  "tt_users ON tt_user_project_binds.user_id = tt_users.id " +
+  "INNER JOIN tt_projects ON tt_projects.id = tt_user_project_binds.project_id " +
+  "INNER JOIN tt_client_project_binds ON tt_client_project_binds.project_id = tt_projects.id " +
+  "INNER JOIN tt_clients ON tt_clients.id = tt_client_project_binds.client_id " +
+  "INNER JOIN tt_project_task_binds ON tt_project_task_binds.project_id= tt_projects.id " +
+  "INNER JOIN tt_tasks ON tt_tasks.id = tt_project_task_binds.task_id " +
+  "WHERE tt_users.login = ? ORDER by tt_projects.name";
+// Route to get all posts
+app.get("/api/getprojectclienttask/:id", (req, res) => {
+  const id = req.params.id;
+  db.query(queryprojectclienttask, id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
 app.get("/", (req, res) => {
-  res.send(
-    "Backend Timesheet: <p>/api/getproject/:id </p> <p>/api/login/:id~:psw </p> <p>/api/gettask</p> <p>/api/getevent/:id~:datestart</p> <p>/api/getusers</p> <p>/api/getdash/:id~:date</p> <p>/api/getdash/:date~:id</p> <p>/api/getuser/:id</p> <p>/api/edituser/:name~:login~:email~:psw</p>"
-  );
+  var text =
+    "Backend Timesheet:" +
+    " <p>/api/getproject/:id </p>" +
+    " <p>/api/getprojectclienttask/:id </p>" +
+    " <p>/api/login/:id~:psw </p>" +
+    " <p>/api/gettask</p>" +
+    " <p>/api/getevent/:id~:datestart</p>" +
+    " <p>/api/getusers</p>" +
+    " <p>/api/getdash/:date~:id</p>" +
+    " <p>/api/getuser/:id</p>" +
+    " <p>/api/edituser/:name~:login~:email~:psw</p>";
+  res.send(text);
 });
 
 // Route to get one post
