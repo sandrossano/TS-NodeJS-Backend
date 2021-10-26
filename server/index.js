@@ -74,7 +74,7 @@ app.delete("/api/deleteevent/:idevt", (req, res) => {
   });
 });
 
-app.update(
+app.post(
   "/api/updateevent/:id~:user~:date~:duration~:comment~:client~:project~:task",
   (req, res) => {
     const id = req.params.id;
