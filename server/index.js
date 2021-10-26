@@ -33,7 +33,7 @@ const queryprojectclienttask =
   "INNER JOIN tt_clients ON tt_clients.id = tt_client_project_binds.client_id " +
   "INNER JOIN tt_project_task_binds ON tt_project_task_binds.project_id= tt_projects.id " +
   "INNER JOIN tt_tasks ON tt_tasks.id = tt_project_task_binds.task_id " +
-  "WHERE tt_users.login = ? ORDER by tt_projects.name";
+  "WHERE tt_users.login = ? ORDER by tt_clients.name";
 // Route to get all posts
 app.get("/api/getprojectclienttask/:id", (req, res) => {
   const id = req.params.id;
