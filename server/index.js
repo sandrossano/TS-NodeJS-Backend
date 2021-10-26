@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
     " <p>/api/edituser/:name~:login~:email~:psw (POST)</p>" +
     " <p>/api/postevent/:user~:date~:duration~:comment~:client~:project~:task (POST)</p>" +
     " <p>/api/deleteevent/:idevt (DELETE)</p>" +
-    " <p>/api/updateevent/:id~:user~:date~:duration~:comment~:client~:project~:task (UPDATE)</p>";
+    " <p>/api/updateevent/:id~:user~:duration~:comment~:client~:project~:task (UPDATE)</p>";
   res.send(text);
 });
 
