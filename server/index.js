@@ -75,7 +75,7 @@ app.delete("/api/deleteevent/:idevt", (req, res) => {
 });
 
 app.post(
-  "/api/updateevent/:id~:user~:date~:duration~:comment~:client~:project~:task",
+  "/api/updateevent/:id~:user~:duration~:comment~:client~:project~:task",
   (req, res) => {
     const id = req.params.id;
     const user = req.params.user;
