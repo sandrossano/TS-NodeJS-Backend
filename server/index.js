@@ -25,8 +25,8 @@ app.get("/api/getproject/:id", (req, res) => {
 });
 
 const queryprojectclienttask =
-  "SELECT tt_projects.name,tt_projects.description,tt_clients.name AS 'clients'," +
-  " tt_tasks.name AS 'tasks' FROM tt_user_project_binds INNER JOIN " +
+  "SELECT tt_projects.name AS 'idprojects' , tt_projects.name,tt_projects.description,tt_clients.name AS 'clients', tt_clients.id AS 'idclients'," +
+  " tt_tasks.name AS 'tasks' , tt_tasks.id AS 'idtasks' FROM tt_user_project_binds INNER JOIN " +
   "tt_users ON tt_user_project_binds.user_id = tt_users.id " +
   "INNER JOIN tt_projects ON tt_projects.id = tt_user_project_binds.project_id " +
   "INNER JOIN tt_client_project_binds ON tt_client_project_binds.project_id = tt_projects.id " +
@@ -56,9 +56,35 @@ app.get("/", (req, res) => {
     " <p>/api/getusers</p>" +
     " <p>/api/getdash/:date~:id</p>" +
     " <p>/api/getuser/:id</p>" +
-    " <p>/api/edituser/:name~:login~:email~:psw</p>";
+    " <p>/api/edituser/:name~:login~:email~:psw (POST)</p>" +
+    " <p>/api/postevent/:user~:date~:duration~:comment~:client~:project~:task (POST)</p>";
   res.send(text);
 });
+
+// Route to get one post
+app.get(
+  "/api/postevent/:user~:date~:duration~:comment~:client~:project~:task",
+  (req, res) => {
+    const user = req.params.user;
+    const date = req.params.date;
+    const duration = req.params.duration;
+    const comment = req.params.comment;
+    const client = req.params.client;
+    const project = req.params.project;
+    const task = req.params.task;
+    db.query(
+      "INSERT INTO tt_log (id, user_id, group_id, org_id, date, duration, comment,client_id, project_id, task_id,created_by,status) " +
+        "SELECT MAX(id) + 1, ? , '1', '1', ? , ? , ? , ? , ? , ? , ? , '1' FROM tt_log;",
+      [user, date, duration, comment, client, project, task, user],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        res.send(result);
+      }
+    );
+  }
+);
 
 // Route to get one post
 app.get("/api/login/:id~:psw", (req, res) => {
