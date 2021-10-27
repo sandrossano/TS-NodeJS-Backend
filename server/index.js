@@ -53,6 +53,7 @@ app.get("/", (req, res) => {
     " <p>/api/login/:id~:psw </p>" +
     " <p>/api/gettask</p>" +
     " <p>/api/getevent/:id~:datestart</p>" +
+    " <p>/api/getreport/:id~:date~:enddate</p>" +
     " <p>/api/getusers</p>" +
     " <p>/api/getdash/:date~:id</p>" +
     " <p>/api/getuser/:id</p>" +
