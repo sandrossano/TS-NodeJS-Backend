@@ -226,7 +226,7 @@ app.get("/api/getevent/:id~:date", (req, res) => {
 const queryreport =
   "SELECT tt_log.id,tt_log.date AS start,tt_log.date AS end," +
   "tt_log.duration,tt_clients.name,tt_projects.name AS project," +
-  "tt_tasks.name AS task, tt_log.comment FROM tt_log INNER JOIN tt_users ON " +
+  "tt_tasks.name AS task, tt_log.comment, tt_users.name as user FROM tt_log INNER JOIN tt_users ON " +
   "tt_log.user_id = tt_users.id INNER JOIN tt_clients ON " +
   "tt_log.client_id = tt_clients.id INNER JOIN tt_projects " +
   "ON tt_log.project_id = tt_projects.id INNER JOIN tt_tasks " +
