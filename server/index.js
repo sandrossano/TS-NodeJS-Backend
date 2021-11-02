@@ -302,7 +302,7 @@ app.get("/api/pdf", (req, res) => {
     console.log("File: ", path);
     console.log("Filedescriptor: ", fd);
     fs.writeFileSync(path, "Hello world!");
-    res.send("hello");
+    res.send(path);
   });
 });
 
