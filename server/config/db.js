@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 
 const db = mysql.createConnection({
-  host: "timesheet.cghmbrpjvqls.eu-central-1.rds.amazonaws.com",
+  host: "", //cambiare per test,
   user: "timesheet",
   password: "timesheet",
   database: "timesheet"
