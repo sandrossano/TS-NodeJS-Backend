@@ -303,6 +303,7 @@ app.get("/api/pdf", (req, res) => {
     console.log("Filedescriptor: ", fd);
     fs.writeFileSync(path, "Hello world!");
   });
+  res.send("hello");
 });
 
 // Route to like a post
