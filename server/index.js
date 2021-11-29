@@ -179,7 +179,7 @@ const querydash =
   "FROM tt_tasks LEFT JOIN tt_log ON tt_tasks.id  = tt_log.task_id " +
   "AND tt_log.date >= ? AND tt_log.date < ? AND tt_log.status = '1' " +
   "AND tt_log.user_id = ( SELECT tt_users.id FROM tt_users WHERE tt_users.login = ?) " +
-  "WHERE tt_tasks.status = '1' AND tt_tasks.name IN ('Smart Working','Hours Off','Holiday','On-Site') " +
+  "WHERE tt_tasks.status = '1' AND tt_tasks.name IN ('Smart Working','Hours Off','Holiday','On-Site','Sede','Traferta') " +
   "GROUP BY tt_tasks.id, tt_tasks.name, tt_log.user_id";
 // Route to get all posts
 app.get("/api/getdash/:date1~:id", (req, res) => {
